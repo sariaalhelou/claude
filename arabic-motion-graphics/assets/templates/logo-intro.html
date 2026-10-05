@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <!-- Logo intro / sting: shapes converge → logo reveal → name + tagline → hold. 6s
-     Put the logo next to this file as logo.png (or .svg) and swap the placeholder. -->
+     Uses the Tartip logo (logo-dark-bg.png / logo-light-bg.png from assets/brand). -->
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="brand.css">
 <link rel="stylesheet" href="stage.css">
 <style>
-  .bg { position: absolute; inset: 0; background: var(--brand-dark); }
+  .bg { position: absolute; inset: 0; background: var(--bg); }
   .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 
   /* converging shapes */
@@ -26,9 +26,10 @@
            animation: burst .9s var(--ease-out) 1.2s both; }
   @keyframes burst { 0% { opacity: 1; transform: scale(.05) } 100% { opacity: 0; transform: scale(1) } }
 
-  .logo-box { position: absolute; left: 50%; top: 46%; width: 340px; height: 340px; margin: -170px 0 0 -170px;
+  .logo-box { position: absolute; left: 50%; top: 46%; width: 800px; height: 278px; margin: -139px 0 0 -400px;
               animation: logo-in .9s var(--ease-pop) 1.2s both; }
-  @keyframes logo-in { 0% { opacity: 0; transform: scale(.2) rotate(-25deg) } 100% { opacity: 1; transform: none } }
+  /* brand rule: never rotate, stretch or recolor the logo — scale + blur only */
+  @keyframes logo-in { 0% { opacity: 0; transform: scale(.6); filter: blur(20px) } 100% { opacity: 1; transform: none; filter: none } }
   .logo-box img { width: 100%; height: 100%; object-fit: contain; }
   .logo-ph { width: 100%; height: 100%; border-radius: 80px; background: var(--brand-primary);
              display: grid; place-items: center; font: 900 96px var(--font-display); color: var(--brand-light); }
@@ -38,7 +39,7 @@
                   transform: translateX(400%) skewX(-20deg); animation: sweep .8s ease-in-out 2.2s both; }
   @keyframes sweep { from { transform: translateX(400%) skewX(-20deg) } to { transform: translateX(-300%) skewX(-20deg) } }
 
-  .name { position: absolute; top: 1150px; left: 0; right: 0; text-align: center; font-size: 120px;
+  .name { position: absolute; top: 1150px; left: 0; right: 0; text-align: center; font-size: 96px;
           animation: wipe-in .8s var(--ease-out) 2s both; }
   .tagline { position: absolute; top: 1330px; left: 0; right: 0; text-align: center; font-size: 52px;
              color: var(--brand-secondary); font-weight: 700; animation: rise-in .7s var(--ease-out) 2.6s both; }
@@ -51,18 +52,16 @@
   <div class="bg"></div>
   <div class="shape" style="width:160px;height:160px;background:var(--brand-primary);--x:300px;--y:-700px;--d:.1s"></div>
   <div class="shape" style="width:110px;height:110px;background:var(--brand-secondary);--x:-480px;--y:-300px;--d:.2s"></div>
-  <div class="shape" style="width:200px;height:200px;background:var(--brand-light);--x:-400px;--y:600px;--d:.15s"></div>
+  <div class="shape" style="width:200px;height:200px;background:var(--brand-white);--x:-400px;--y:600px;--d:.15s"></div>
   <div class="shape" style="width:90px;height:90px;background:var(--brand-secondary);--x:420px;--y:420px;--d:.25s"></div>
   <div class="burst"></div>
 
   <div class="logo-box">
-    <!-- replace with: <img src="logo.png" alt=""> -->
-    <div class="logo-ph">شعار</div>
-    <div class="shine"></div>
+    <img src="logo-dark-bg.png" alt="">
   </div>
   <div class="bar"></div>
-  <div class="name display">اسم العلامة</div>
-  <div class="tagline">الشعار النصي يكتب هنا</div>
+  <div class="name display brand-gradient-text">نرتّب حضورك الرقمي</div>
+  <div class="tagline"><span class="brand-handle"><span class="ig"></span><bdi>tartipagency</bdi></span></div>
 </div>
 <script src="mg.js"></script>
 </body>

@@ -21,15 +21,15 @@ everything on screen is drawn with HTML/CSS/SVG (plus images the user supplies).
 | `scripts/new_project.sh <dir> <template>` | Creates a project folder: template → `index.html`, plus fonts, `mg.js`, `stage.css`, `brand.css`, brand assets |
 | `scripts/render.mjs <page.html>` | Renders: `--stills 1,4.5` (PNG frames), default MP4, `--sheet` contact sheet, `--audio f.mp3` |
 | `assets/templates/` | `kinetic-text` (12s), `product-ad` (15s), `explainer` (18s), `logo-intro` (6s), `blank` |
-| `assets/brand.css` | Brand colors, fonts, easing as CSS variables — every template reads only these |
-| `assets/brand/` | The user's logo and other brand files; copied into every new project |
+| `assets/brand.css` | Tartip brand: colors, fonts, easing, navy/light themes, and brand components (`.brand-badge`, `.brand-gradient-text`, `.brand-card`, `.brand-stripes`, `.brand-handle`) |
+| `assets/brand/` | Tartip logos (`logo-dark-bg.png`, `logo-light-bg.png`) and icons; copied into every new project |
 | `assets/stage.css` | 1080×1920 stage, Reels safe zone, scene windows, reusable keyframes |
 | `assets/mg.js` | Runtime: `splitWords`, `counter`, `onFrame`, easing, `formatNumber` |
 | `assets/fonts/` | Cairo, Tajawal, Almarai, IBM Plex Sans Arabic, Noto Kufi Arabic, Changa, Reem Kufi, Lalezar |
 | `references/arabic-typography.md` | **Read before writing any Arabic on screen** — shaping, fonts, digits, bidi |
 | `references/motion-design.md` | Timing, reading speed, easing, Reels structure, per-video-type recipes |
 | `references/techniques.md` | How the timeline works, CSS/JS patterns, gotchas, images/video/audio |
-| `references/brand.md` | The user's identity and tone of voice — follow it in every video |
+| `references/brand.md` | **Tartip identity** — palette, logo rules, signature elements, voice. Read it for every video |
 
 ## Workflow
 
@@ -59,8 +59,11 @@ bash <skill>/scripts/new_project.sh ./videos/<name> <template>
 ```
 Pick the closest template and adapt it — they already encode the safe zone, the RTL
 motion direction and timing that reads well. Edit `index.html`: copy, scene windows
-(`--in` / `--out`), delays, and swap placeholders (`product.png`, `logo.png`) for the
-user's files. Keep colors and fonts as `var(--brand-*)` so the brand stays consistent.
+(`--in` / `--out`), delays, and swap placeholders (e.g. `product.png`) for the
+user's files. Keep colors and fonts as `var(--brand-*)` / `var(--bg)` / `var(--fg)` and
+reuse the brand components so every video looks like Tartip — unless the user asks
+for a video for a different brand (e.g. a client): then override the variables in the
+project's own `brand.css`, never the skill's, and drop the Tartip logo.
 Read `references/techniques.md` before writing new animation code.
 
 ### 4. Check stills, then render

@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="brand.css">
 <link rel="stylesheet" href="stage.css">
 <style>
-  .bg { position: absolute; inset: 0; background: var(--brand-light); }
-  body { color: var(--brand-dark); }
+  .bg { position: absolute; inset: 0; background: var(--bg); }
   .grid { position: absolute; inset: 0; opacity: .5;
           background-image: linear-gradient(color-mix(in srgb, var(--brand-muted) 25%, transparent) 2px, transparent 2px),
                             linear-gradient(90deg, color-mix(in srgb, var(--brand-muted) 25%, transparent) 2px, transparent 2px);
@@ -25,7 +24,7 @@
 
   /* bar chart: bars grow upward, labels under, values counted from DATA */
   .chart-title { font: 900 72px var(--font-display); margin-bottom: 60px; animation: wipe-in .7s var(--ease-out) 7.1s both; }
-  .bars { display: flex; align-items: flex-end; gap: 40px; height: 760px; border-bottom: 4px solid var(--brand-dark); }
+  .bars { display: flex; align-items: flex-end; gap: 40px; height: 760px; border-bottom: 4px solid var(--fg); }
   .bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
   .bar .val { font: 900 54px var(--font-display); margin-bottom: 14px; animation: fade-in .3s calc(7.6s + var(--i) * .25s) both; }
   .bar .fill { width: 100%; border-radius: 22px 22px 0 0; background: var(--brand-muted); height: var(--h);
@@ -39,26 +38,26 @@
   .step { display: flex; align-items: center; gap: 40px; font-size: 56px; font-weight: 700;
           animation: slide-in .6s var(--ease-out) calc(11.4s + var(--i) * .7s) both; }
   .step b { flex: none; width: 130px; height: 130px; border-radius: 50%; display: grid; place-items: center;
-            background: var(--brand-primary); color: var(--brand-light); font: 900 64px var(--font-display); }
-  .step small { display: block; font-size: 40px; font-weight: 400; color: color-mix(in srgb, var(--brand-dark) 65%, transparent); }
+            background: var(--brand-primary); color: #fff; font: 900 64px var(--font-display); }
+  .step small { display: block; font-size: 40px; font-weight: 400; color: var(--fg-soft); }
   .connector { position: absolute; right: 63px; top: 130px; bottom: 130px; width: 6px; background: var(--brand-secondary);
                transform-origin: top; animation: grow-y 1.6s var(--ease-out) 11.6s both; }
 
   .takeaway { text-align: center; align-items: center; }
-  .takeaway .box { background: var(--brand-primary); color: var(--brand-light); border-radius: 48px; padding: 70px 60px;
+  .takeaway .box { background: var(--brand-gradient); color: #fff; border-radius: 48px; padding: 70px 60px;
                    font: 900 84px/1.45 var(--font-display); animation: pop-in .7s var(--ease-pop) 15.2s both; }
   .takeaway .src { margin-top: 36px; font-size: 38px; color: var(--brand-muted); animation: fade-in .5s 16s both; }
 
   .out { animation: fade-out .35s var(--ease-in) var(--o) forwards; }
 </style>
 </head>
-<body data-duration="18" data-width="1080" data-height="1920">
+<body class="theme-light" data-duration="18" data-width="1080" data-height="1920">
 <div class="stage">
   <div class="bg"></div><div class="grid"></div>
 
   <section class="scene" style="--in:0s; --out:3.4s">
     <div class="safe out" style="--o:3s">
-      <div class="kicker" style="animation: fade-in .4s .1s both">بالأرقام</div>
+      <div class="brand-badge" style="margin-bottom:36px; animation: pop-in .5s var(--ease-pop) .1s both">📊 بالأرقام</div>
       <div class="title display" id="title">كم ساعة نقضي على الجوال يومياً؟</div>
     </div>
   </section>
@@ -91,6 +90,7 @@
     <div class="safe takeaway">
       <div class="box">وقتك أثمن<br>من التمرير</div>
       <div class="src">المصدر: اكتب مصدر الأرقام هنا</div>
+      <img class="brand-logo" src="logo-light-bg.png" alt="" style="margin-top:80px;height:84px;animation:fade-in .5s 16.2s both">
     </div>
   </section>
 </div>

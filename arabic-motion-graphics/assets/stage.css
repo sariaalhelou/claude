@@ -4,11 +4,11 @@
  * positioned <section class="scene"> layers stacked on it.
  */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--brand-dark); }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg, var(--brand-dark)); }
 body {
   direction: rtl;
   font-family: var(--font-body), "Tajawal", sans-serif;
-  color: var(--brand-light);
+  color: var(--fg, var(--brand-light));
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
 }

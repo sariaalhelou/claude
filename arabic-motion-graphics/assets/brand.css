@@ -1,31 +1,87 @@
 /*
- * brand.css — the visual identity every video inherits.
- *
- * PLACEHOLDER VALUES: replace them with the user's real identity
- * (see references/brand.md). Templates only use these variables, so
- * changing this file rebrands every video.
+ * brand.css — Tartip visual identity (from the Tartip brand guide).
+ * Every template reads only these variables/components, so this file is the
+ * single place to change the look. Details and rules: references/brand.md
  */
 :root {
-  /* colors */
-  --brand-primary: #0f766e;   /* main brand color: backgrounds, big shapes */
-  --brand-secondary: #f59e0b; /* accent: highlights, underlines, CTA */
-  --brand-dark: #0b1320;      /* dark background / text on light */
-  --brand-light: #f8f5ef;     /* light background / text on dark */
-  --brand-muted: #94a3b8;     /* secondary text, grid lines */
+  /* palette — the only approved colors */
+  --brand-primary: #2F6FED;    /* Signal Blue */
+  --brand-secondary: #17C3B2;  /* Growth Cyan */
+  --brand-dark: #224087;       /* Royal Blue — dark backgrounds, headline text on light */
+  --brand-light: #EEF2FC;      /* Ice — light backgrounds */
+  --brand-white: #FFFFFF;
+  --brand-ink: #1B2A4A;        /* body text on light */
+  --brand-muted: #8FA3C8;      /* secondary text, lines */
+  --brand-gradient: linear-gradient(135deg, #2F6FED, #17C3B2);   /* Brand Gradient 135° */
 
-  /* typography — families must exist in fonts/fonts.css */
-  --font-display: "Cairo";    /* headlines, numbers, hooks (use weight 900) */
-  --font-body: "Tajawal";     /* sentences, captions, labels */
+  /* gradient headline text: starts cyan on the right (where Arabic starts reading) */
+  --brand-text-gradient-light: linear-gradient(to left, #17C3B2 0%, #2F6FED 45%, #224087 100%); /* on Ice/white */
+  --brand-text-gradient-dark: linear-gradient(to left, #17C3B2 0%, #7FB0FF 45%, #FFFFFF 100%);  /* on Royal Blue */
 
-  /* digits: "western" (123) or "arabic" (١٢٣) — read by templates via MG.formatNumber */
-  --digits: western;
+  /* typography: Tajawal for all Arabic, Space Grotesk for Latin (handles, numbers in English) */
+  --font-display: "Tajawal";
+  --font-body: "Tajawal";
+  --font-latin: "Space Grotesk";
 
-  /* logo: path relative to the project folder; leave empty if none yet */
-  --logo-url: url("logo.png");
+  --digits: arabic;            /* Eastern digits ١٢٣ as in the brand's social templates */
 
-  /* motion personality */
-  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);       /* exits */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);      /* entrances (expo-out) */
-  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);  /* playful overshoot */
-  --stagger: 80ms;                                 /* delay between words */
+  --logo-on-dark: url("logo-dark-bg.png");
+  --logo-on-light: url("logo-light-bg.png");
+  --handle: "tartipagency";
+
+  /* motion personality: confident and clean — smooth expo eases, small overshoot only on badges/buttons */
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --stagger: 80ms;
+  --radius: 28px;
 }
+
+/* ---------- themes: navy is the default; add class="theme-light" on <body> for Ice ---------- */
+body { --bg: var(--brand-dark); --fg: var(--brand-white); --fg-soft: #C9D6F2; --text-gradient: var(--brand-text-gradient-dark); --stripe: rgba(255,255,255,.10); }
+body.theme-light { --bg: var(--brand-light); --fg: var(--brand-dark); --fg-soft: #5B6B8C; --text-gradient: var(--brand-text-gradient-light); --stripe: rgba(34,64,135,.07); }
+html, body { background: var(--bg); }
+body { color: var(--fg); }
+
+/* ---------- brand components ---------- */
+
+/* logo: <img class="brand-logo" src="logo-dark-bg.png"> (light version on theme-light).
+   Clear space ≥ height of the "T" on all sides; never rotate, stretch or recolor it. */
+.brand-logo { display: block; height: 96px; width: auto; }
+
+/* gradient headline — padding keeps tall Arabic glyphs inside the painted box */
+.brand-gradient-text { background: var(--text-gradient); -webkit-background-clip: text; background-clip: text;
+                       color: transparent; padding-block: .12em .2em; }
+
+/* pill badge, e.g. "💡 نصيحة تسويقية" */
+.brand-badge { display: inline-flex; align-items: center; gap: 14px; align-self: flex-start;
+               background: var(--brand-gradient); color: #fff; font: 700 40px var(--font-body);
+               padding: 14px 34px; border-radius: 999px; }
+
+/* white tip/step card with a numbered circle (navy → blue → cyan for 1, 2, 3) */
+.brand-card { display: flex; align-items: center; gap: 32px; background: #fff; color: var(--brand-ink);
+              border-radius: var(--radius); padding: 36px 40px; font-size: 44px; line-height: 1.5;
+              box-shadow: 0 10px 30px rgba(34,64,135,.12); }
+.brand-card b { font-weight: 800; }
+.brand-num { flex: none; width: 88px; height: 88px; border-radius: 50%; display: grid; place-items: center;
+             color: #fff; font: 800 44px var(--font-display); background: var(--brand-dark); }
+.brand-card:nth-child(3n+2) .brand-num { background: var(--brand-primary); }
+.brand-card:nth-child(3n+3) .brand-num { background: var(--brand-secondary); }
+
+/* signature diagonal rounded stripes (bottom-left) */
+.brand-stripes { position: absolute; left: -120px; bottom: 380px; width: 760px; height: 420px; pointer-events: none; }
+.brand-stripes i { position: absolute; left: 0; height: 84px; border-radius: 999px; background: var(--stripe);
+                   transform: rotate(-20deg); transform-origin: left center; }
+.brand-stripes i:nth-child(1) { top: 0;     width: 620px; }
+.brand-stripes i:nth-child(2) { top: 120px; width: 660px; }
+.brand-stripes i:nth-child(3) { top: 240px; width: 700px; }
+
+/* soft corner glow, as on the reel covers */
+.brand-glow { position: absolute; width: 900px; height: 900px; border-radius: 50%; pointer-events: none;
+              background: radial-gradient(closest-side, rgba(47,111,237,.35), transparent); }
+body.theme-light .brand-glow { background: radial-gradient(closest-side, rgba(23,195,178,.16), transparent); }
+
+/* handle line: <div class="brand-handle"><span class="ig"></span><bdi>tartipagency</bdi></div> */
+.brand-handle { display: inline-flex; align-items: center; gap: 16px; font: 700 40px var(--font-latin); }
+.brand-handle .ig { width: 56px; height: 56px; border-radius: 50%; background: var(--brand-gradient) center/60% no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2'%3E%3Crect x='3' y='3' width='18' height='18' rx='5'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Ccircle cx='17.5' cy='6.5' r='1' fill='white'/%3E%3C/svg%3E"), var(--brand-gradient); }
