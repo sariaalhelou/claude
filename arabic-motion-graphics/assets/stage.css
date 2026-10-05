@@ -1,0 +1,67 @@
+/*
+ * stage.css — shared base for every video page. Rarely needs editing.
+ * The stage is a fixed 1080x1920 (Reels) canvas; scenes are absolutely
+ * positioned <section class="scene"> layers stacked on it.
+ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--brand-dark); }
+body {
+  direction: rtl;
+  font-family: var(--font-body), "Tajawal", sans-serif;
+  color: var(--brand-light);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+.stage { position: absolute; inset: 0; overflow: hidden; }
+.scene { position: absolute; inset: 0; }
+
+/*
+ * Reels safe zone: Instagram covers the top (~220px: progress bar, account),
+ * the bottom (~420px: caption, audio, buttons) and the right edge in the
+ * lower half (like/comment/share column). Keep text and logos inside .safe.
+ */
+.safe {
+  position: absolute;
+  top: 220px; bottom: 420px; left: 72px; right: 72px;
+  display: flex; flex-direction: column; justify-content: center; align-items: stretch;
+}
+
+.display { font-family: var(--font-display), "Cairo", sans-serif; font-weight: 900; line-height: 1.35; }
+.w { display: inline-block; } /* word spans from MG.splitWords */
+bdi, .ltr { unicode-bidi: isolate; direction: ltr; }
+
+/* ?guides in the URL draws the safe zone for previewing */
+body.guides::after {
+  content: ""; position: absolute; z-index: 9999; pointer-events: none;
+  top: 220px; bottom: 420px; left: 72px; right: 72px;
+  outline: 3px dashed rgba(255, 0, 80, 0.8);
+}
+body.guides::before {
+  content: ""; position: absolute; z-index: 9999; pointer-events: none;
+  right: 0; width: 150px; top: 960px; bottom: 0; background: rgba(255, 0, 80, 0.25);
+}
+
+/* ---------- reusable keyframes (RTL-aware: "in" moves right → left) ---------- */
+@keyframes fade-in   { from { opacity: 0 } to { opacity: 1 } }
+@keyframes fade-out  { from { opacity: 1 } to { opacity: 0 } }
+@keyframes rise-in   { from { opacity: 0; transform: translateY(60px) } to { opacity: 1; transform: none } }
+@keyframes slide-in  { from { opacity: 0; transform: translateX(120px) } to { opacity: 1; transform: none } }
+@keyframes slide-out { from { opacity: 1; transform: none } to { opacity: 0; transform: translateX(-120px) } }
+@keyframes pop-in    { from { opacity: 0; transform: scale(0.6) } to { opacity: 1; transform: none } }
+@keyframes blur-in   { from { opacity: 0; filter: blur(24px); transform: scale(1.08) } to { opacity: 1; filter: none; transform: none } }
+/* mask reveal from the right edge — the Arabic-safe "letter by letter" look */
+@keyframes wipe-in   { from { clip-path: inset(-20% 0 -20% 100%) } to { clip-path: inset(-20% 0 -20% 0) } }
+@keyframes wipe-out  { from { clip-path: inset(-20% 0 -20% 0) } to { clip-path: inset(-20% 100% -20% 0) } }
+@keyframes grow-x    { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes grow-y    { from { transform: scaleY(0) } to { transform: scaleY(1) } }
+@keyframes float     { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-18px) } }
+@keyframes spin      { to { transform: rotate(360deg) } }
+
+/*
+ * Scene windows. All animation-delays on the page are GLOBAL seconds from
+ * the start of the video. A scene is visible between --in and --out:
+ *   <section class="scene" style="--in:3s; --out:7s">
+ */
+.scene { visibility: hidden; animation: scene-show 1ms linear var(--in, 0s) forwards, scene-hide 1ms linear var(--out, 9999s) forwards; }
+@keyframes scene-show { to { visibility: visible } }
+@keyframes scene-hide { to { visibility: hidden } }

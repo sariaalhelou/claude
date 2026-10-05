@@ -1,0 +1,51 @@
+{
+  "skill_name": "arabic-motion-graphics",
+  "evals": [
+    {
+      "id": 1,
+      "name": "burger-offer-ad",
+      "prompt": "اعمل لي ريل إعلان لمطعم برغر اسمه 'برغرنا'، عرض وجبة دبل برغر مع بطاطس ومشروب بـ 29 ريال بدل 45، لمدة أسبوع فقط. 15 ثانية تقريباً.",
+      "expected_output": "A ~15s 1080x1920 MP4 product-ad reel: hook, meal reveal, offer with old 45 / new 29 price, 'one week only' urgency, CTA, برغرنا branding; correct Arabic shaping.",
+      "files": [],
+      "assertions": [
+        "mp4 is 1080x1920 H.264 yuv420p",
+        "duration between 12 and 18 seconds",
+        "source shows both prices 29 and 45 and the brand name برغرنا",
+        "source mentions the one-week limit (أسبوع)",
+        "an Arabic web font is loaded via @font-face (not a system fallback)",
+        "no per-letter splitting of Arabic text",
+        "frames: all text inside the Reels safe zone and readable"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "quote-kinetic-text",
+      "prompt": "سوّ لي فيديو نص متحرك لهذا الاقتباس: 'النجاح ليس نهاية، والفشل ليس قاتلاً، إنما الشجاعة للاستمرار هي ما يهم' — أبيه للنشر على انستغرام ريلز",
+      "expected_output": "A 1080x1920 kinetic typography MP4 showing the full quote word-by-word in readable chunks with enough hold time, correct joining.",
+      "files": [],
+      "assertions": [
+        "mp4 is 1080x1920 H.264 yuv420p",
+        "duration between 8 and 25 seconds",
+        "source contains every word of the quote",
+        "an Arabic web font is loaded via @font-face (not a system fallback)",
+        "no per-letter splitting of Arabic text",
+        "frames: all text inside the Reels safe zone and readable"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "store-growth-infographic",
+      "prompt": "أبي فيديو إنفوجرافيك قصير عن نمو متجرنا الإلكتروني: المبيعات 2023 = 120 ألف ريال، 2024 = 310 ألف، 2025 = 540 ألف، وعدد العملاء وصل 12,000 عميل. للريلز.",
+      "expected_output": "A 1080x1920 infographic MP4 with animated chart of the three years, counters, the 12,000 customers stat, correct numbers.",
+      "files": [],
+      "assertions": [
+        "mp4 is 1080x1920 H.264 yuv420p",
+        "duration between 10 and 25 seconds",
+        "source contains the values 120, 310, 540 and 12000/12,000 (any digit form)",
+        "an Arabic web font is loaded via @font-face (not a system fallback)",
+        "no per-letter splitting of Arabic text",
+        "frames: all text inside the Reels safe zone and readable"
+      ]
+    }
+  ]
+}

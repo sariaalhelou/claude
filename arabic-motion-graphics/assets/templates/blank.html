@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<!-- Blank starting point. All animation-delays are global seconds from video start. -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="brand.css">
+<link rel="stylesheet" href="stage.css">
+<style>
+  .bg { position: absolute; inset: 0; background: var(--brand-dark); }
+  .headline { font-size: 110px; }
+  .headline .w { animation: rise-in .6s var(--ease-out) calc(var(--t0) + var(--i) * var(--stagger)) both; }
+</style>
+</head>
+<body data-duration="10" data-width="1080" data-height="1920">
+<div class="stage">
+  <div class="bg"></div>
+
+  <section class="scene" style="--in:0s; --out:5s">
+    <div class="safe" style="animation: fade-out .4s var(--ease-in) 4.6s forwards">
+      <div class="headline display" data-words style="--t0:.2s">المشهد الأول</div>
+    </div>
+  </section>
+
+  <section class="scene" style="--in:5s">
+    <div class="safe">
+      <div class="headline display" data-words style="--t0:5.2s">المشهد الثاني</div>
+    </div>
+  </section>
+</div>
+<script src="mg.js"></script>
+<script>
+  document.querySelectorAll("[data-words]").forEach(MG.splitWords);
+</script>
+</body>
+</html>

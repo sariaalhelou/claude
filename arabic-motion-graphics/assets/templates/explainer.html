@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<!-- Explainer / infographic reel: question → big stat → bar chart → 3 steps → takeaway. 18s
+     Data lives in the DATA object at the bottom; the chart and counters are drawn from it. -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="brand.css">
+<link rel="stylesheet" href="stage.css">
+<style>
+  .bg { position: absolute; inset: 0; background: var(--brand-light); }
+  body { color: var(--brand-dark); }
+  .grid { position: absolute; inset: 0; opacity: .5;
+          background-image: linear-gradient(color-mix(in srgb, var(--brand-muted) 25%, transparent) 2px, transparent 2px),
+                            linear-gradient(90deg, color-mix(in srgb, var(--brand-muted) 25%, transparent) 2px, transparent 2px);
+          background-size: 90px 90px; }
+  .kicker { font: 800 46px var(--font-body); color: var(--brand-primary); margin-bottom: 20px; }
+  .title { font-size: 104px; }
+  .title .w { animation: rise-in .6s var(--ease-out) calc(.2s + var(--i) * var(--stagger)) both; }
+
+  /* big stat */
+  .stat { text-align: center; align-items: center; }
+  .stat-num { font: 900 300px/1.15 var(--font-display); color: var(--brand-primary); animation: pop-in .6s var(--ease-pop) 3.6s both; }
+  .stat-label { font-size: 60px; font-weight: 700; max-width: 820px; animation: rise-in .6s var(--ease-out) 4.2s both; }
+
+  /* bar chart: bars grow upward, labels under, values counted from DATA */
+  .chart-title { font: 900 72px var(--font-display); margin-bottom: 60px; animation: wipe-in .7s var(--ease-out) 7.1s both; }
+  .bars { display: flex; align-items: flex-end; gap: 40px; height: 760px; border-bottom: 4px solid var(--brand-dark); }
+  .bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .bar .val { font: 900 54px var(--font-display); margin-bottom: 14px; animation: fade-in .3s calc(7.6s + var(--i) * .25s) both; }
+  .bar .fill { width: 100%; border-radius: 22px 22px 0 0; background: var(--brand-muted); height: var(--h);
+               transform-origin: bottom; animation: grow-y .9s var(--ease-out) calc(7.5s + var(--i) * .25s) both; }
+  .bar.top .fill { background: var(--brand-primary); }
+  .labels { display: flex; gap: 40px; margin-top: 18px; }
+  .labels span { flex: 1; text-align: center; font-size: 42px; font-weight: 700; animation: fade-in .4s 8.4s both; }
+
+  /* steps connected by a line drawn right → left */
+  .steps { position: relative; gap: 70px; }
+  .step { display: flex; align-items: center; gap: 40px; font-size: 56px; font-weight: 700;
+          animation: slide-in .6s var(--ease-out) calc(11.4s + var(--i) * .7s) both; }
+  .step b { flex: none; width: 130px; height: 130px; border-radius: 50%; display: grid; place-items: center;
+            background: var(--brand-primary); color: var(--brand-light); font: 900 64px var(--font-display); }
+  .step small { display: block; font-size: 40px; font-weight: 400; color: color-mix(in srgb, var(--brand-dark) 65%, transparent); }
+  .connector { position: absolute; right: 63px; top: 130px; bottom: 130px; width: 6px; background: var(--brand-secondary);
+               transform-origin: top; animation: grow-y 1.6s var(--ease-out) 11.6s both; }
+
+  .takeaway { text-align: center; align-items: center; }
+  .takeaway .box { background: var(--brand-primary); color: var(--brand-light); border-radius: 48px; padding: 70px 60px;
+                   font: 900 84px/1.45 var(--font-display); animation: pop-in .7s var(--ease-pop) 15.2s both; }
+  .takeaway .src { margin-top: 36px; font-size: 38px; color: var(--brand-muted); animation: fade-in .5s 16s both; }
+
+  .out { animation: fade-out .35s var(--ease-in) var(--o) forwards; }
+</style>
+</head>
+<body data-duration="18" data-width="1080" data-height="1920">
+<div class="stage">
+  <div class="bg"></div><div class="grid"></div>
+
+  <section class="scene" style="--in:0s; --out:3.4s">
+    <div class="safe out" style="--o:3s">
+      <div class="kicker" style="animation: fade-in .4s .1s both">بالأرقام</div>
+      <div class="title display" id="title">كم ساعة نقضي على الجوال يومياً؟</div>
+    </div>
+  </section>
+
+  <section class="scene" style="--in:3.4s; --out:7s">
+    <div class="safe stat out" style="--o:6.6s">
+      <div class="stat-num"><span id="stat">0</span></div>
+      <div class="stat-label">ساعات يومياً في المتوسط على الهاتف</div>
+    </div>
+  </section>
+
+  <section class="scene" style="--in:7s; --out:11.2s">
+    <div class="safe out" style="--o:10.8s">
+      <div class="chart-title">حسب الفئة العمرية</div>
+      <div class="bars" id="bars"></div>
+      <div class="labels" id="labels"></div>
+    </div>
+  </section>
+
+  <section class="scene" style="--in:11.2s; --out:15s">
+    <div class="safe steps out" style="--o:14.6s">
+      <div class="connector"></div>
+      <div class="step" style="--i:0"><b>١</b><div>حدّد وقتاً<small>ساعة بلا شاشة يومياً</small></div></div>
+      <div class="step" style="--i:1"><b>٢</b><div>أوقف الإشعارات<small>أبقِ المهم فقط</small></div></div>
+      <div class="step" style="--i:2"><b>٣</b><div>راقب تقدّمك<small>من إعدادات الجوال</small></div></div>
+    </div>
+  </section>
+
+  <section class="scene" style="--in:15s">
+    <div class="safe takeaway">
+      <div class="box">وقتك أثمن<br>من التمرير</div>
+      <div class="src">المصدر: اكتب مصدر الأرقام هنا</div>
+    </div>
+  </section>
+</div>
+<script src="mg.js"></script>
+<script>
+  // ---- edit the numbers here ----
+  const DATA = {
+    stat: 5.4,
+    bars: [ // label, value — the highest value is highlighted
+      ["١٨–٢٤", 7.1], ["٢٥–٣٤", 5.9], ["٣٥–٤٤", 4.6], ["+٤٥", 3.2],
+    ],
+    arabicDigits: true,
+  };
+
+  MG.splitWords(document.getElementById("title"));
+  MG.counter(document.getElementById("stat"), { to: DATA.stat, start: 3.6, dur: 1.4, decimals: 1, arabicDigits: DATA.arabicDigits });
+
+  const max = Math.max(...DATA.bars.map((b) => b[1]));
+  const bars = document.getElementById("bars"), labels = document.getElementById("labels");
+  DATA.bars.forEach(([label, v], i) => {
+    bars.insertAdjacentHTML("beforeend",
+      `<div class="bar ${v === max ? "top" : ""}" style="--i:${i}; --h:${(v / max) * 82}%">
+         <div class="val">${MG.formatNumber(v, { decimals: 1, arabicDigits: DATA.arabicDigits })}</div><div class="fill"></div></div>`);
+    labels.insertAdjacentHTML("beforeend", `<span>${label}</span>`);
+  });
+</script>
+</body>
+</html>

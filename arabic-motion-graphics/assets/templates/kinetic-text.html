@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<!-- Kinetic typography reel: hook → 2 message cards (word by word) → sign-off. 12s -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="brand.css">
+<link rel="stylesheet" href="stage.css">
+<style>
+  .bg { position: absolute; inset: 0; background:
+        radial-gradient(1200px 900px at 85% 10%, color-mix(in srgb, var(--brand-primary) 55%, transparent), transparent 70%),
+        radial-gradient(900px 900px at 10% 95%, color-mix(in srgb, var(--brand-secondary) 30%, transparent), transparent 70%),
+        var(--brand-dark); }
+  .orb { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .5;
+         background: var(--brand-secondary); animation: float 4s ease-in-out infinite; }
+
+  .line { font-size: 118px; text-align: right; }
+  .line .w { opacity: 0; animation: rise-in .7s var(--ease-out) calc(var(--t0) + var(--i) * var(--stagger)) both; }
+  .small { font-size: 54px; color: var(--brand-muted); margin-bottom: 24px; font-weight: 700; }
+
+  /* highlighted word: marker swipe behind it, drawn from the right */
+  .hl { position: relative; color: var(--brand-dark); padding: 0 14px; }
+  .hl::before { content: ""; position: absolute; inset: -2% -10px -4%; z-index: -1; border-radius: 14px;
+                background: var(--brand-secondary); transform-origin: right;
+                animation: grow-x .5s var(--ease-out) var(--hl-at) both; }
+  .hl { isolation: isolate; }
+
+  .exit { animation: slide-out .45s var(--ease-in) var(--out-at) forwards; }
+
+  .sign { align-items: center; text-align: center; }
+  .logo { width: 240px; height: 240px; border-radius: 48px; display: grid; place-items: center;
+          background: var(--brand-primary); font: 900 64px var(--font-display);
+          animation: pop-in .7s var(--ease-pop) 9.2s both; }
+  .handle { margin-top: 40px; font-size: 56px; font-weight: 700; opacity: 0;
+            animation: wipe-in .8s var(--ease-out) 9.7s both, fade-in .01s 9.7s both; }
+</style>
+</head>
+<body data-duration="12" data-width="1080" data-height="1920">
+<div class="stage">
+  <div class="bg"></div>
+  <div class="orb" style="width:180px;height:180px;top:300px;left:90px"></div>
+  <div class="orb" style="width:90px;height:90px;top:1350px;right:160px;animation-delay:-1.5s"></div>
+
+  <!-- 0 – 3.4s : hook -->
+  <section class="scene" style="--in:0s; --out:3.4s">
+    <div class="safe exit" style="--out-at:2.9s">
+      <div class="small w" style="animation: fade-in .5s .1s both">هل تعلم؟</div>
+      <div class="line display" data-split style="--t0:.3s">٨٠٪ من الناس يتوقفون عند <span class="hl" style="--hl-at:1.4s">أول ثانية</span></div>
+    </div>
+  </section>
+
+  <!-- 3.4 – 6.4s -->
+  <section class="scene" style="--in:3.4s; --out:6.4s">
+    <div class="safe exit" style="--out-at:5.9s">
+      <div class="line display" data-split style="--t0:3.5s">لذلك اجعل رسالتك <span class="hl" style="--hl-at:4.4s">واضحة</span></div>
+    </div>
+  </section>
+
+  <!-- 6.4 – 9s -->
+  <section class="scene" style="--in:6.4s; --out:9s">
+    <div class="safe exit" style="--out-at:8.5s">
+      <div class="line display" data-split style="--t0:6.5s">قصيرة، جريئة، <span class="hl" style="--hl-at:7.4s">ولا تُنسى</span></div>
+    </div>
+  </section>
+
+  <!-- 9 – 12s : sign-off -->
+  <section class="scene" style="--in:9s">
+    <div class="safe sign">
+      <div class="logo">شعار</div>
+      <div class="handle"><bdi>@yourbrand</bdi></div>
+    </div>
+  </section>
+</div>
+<script src="mg.js"></script>
+<script>
+  // Split [data-split] lines into word spans, keeping .hl highlight spans intact as one word.
+  document.querySelectorAll("[data-split]").forEach((line) => {
+    let i = 0;
+    const out = [];
+    line.childNodes.forEach((n) => {
+      if (n.nodeType === 3) {
+        n.textContent.trim().split(/\s+/).filter(Boolean)
+          .forEach((w) => out.push(`<span class="w" style="--i:${i++}">${w}</span>`));
+      } else {
+        n.classList.add("w"); n.style.setProperty("--i", i++); out.push(n.outerHTML);
+      }
+    });
+    line.innerHTML = out.join(" ");
+  });
+</script>
+</body>
+</html>

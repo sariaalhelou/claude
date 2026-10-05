@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<!-- Product ad reel: hook → product reveal → 3 benefits → offer + CTA. 15s
+     Put the product photo (transparent PNG works best) next to this file as product.png. -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="brand.css">
+<link rel="stylesheet" href="stage.css">
+<style>
+  .bg { position: absolute; inset: 0; background: var(--brand-dark); }
+  .bg-wash { position: absolute; inset: -20%; transform-origin: 70% 30%;
+             background: radial-gradient(closest-side, var(--brand-primary), transparent);
+             opacity: .55; animation: pop-in 1.2s var(--ease-out) 3s both; }
+
+  /* ---------- 1. hook 0–3s ---------- */
+  .hook { font-size: 128px; text-align: right; }
+  .hook .w { animation: rise-in .6s var(--ease-out) calc(.15s + var(--i) * var(--stagger)) both; }
+  .hook-sub { font-size: 52px; color: var(--brand-secondary); font-weight: 700; margin-top: 30px;
+              animation: wipe-in .7s var(--ease-out) 1.2s both; }
+
+  /* ---------- 2. product 3–7s ---------- */
+  .product-wrap { position: absolute; left: 50%; top: 520px; width: 720px; height: 720px; margin-left: -360px;
+                  animation: blur-in 1s var(--ease-out) 3.1s both; }
+  .product-wrap img, .product-ph { width: 100%; height: 100%; object-fit: contain;
+                  animation: float 3.5s ease-in-out 4.1s infinite; }
+  .product-ph { border-radius: 60px; display: grid; place-items: center; font: 700 56px var(--font-body);
+                background: linear-gradient(160deg, var(--brand-secondary), var(--brand-primary)); color: var(--brand-dark); }
+  .ring { position: absolute; inset: -60px; border: 4px solid var(--brand-secondary); border-radius: 50%;
+          opacity: .5; animation: pop-in 1.2s var(--ease-out) 3.3s both; }
+  .p-name { position: absolute; top: 1290px; right: 72px; left: 72px; text-align: center; font-size: 96px;
+            animation: rise-in .7s var(--ease-out) 3.8s both; }
+  .p-tag { position: absolute; top: 260px; right: 72px; background: var(--brand-secondary); color: var(--brand-dark);
+           font: 800 44px var(--font-body); padding: 12px 34px; border-radius: 999px;
+           animation: slide-in .6s var(--ease-pop) 4.3s both; }
+
+  /* ---------- 3. benefits 7–11s ---------- */
+  .benefits { gap: 40px; justify-content: center; }
+  .benefit { display: flex; align-items: center; gap: 36px; background: color-mix(in srgb, var(--brand-light) 8%, transparent);
+             border: 2px solid color-mix(in srgb, var(--brand-light) 14%, transparent);
+             border-radius: 36px; padding: 40px 44px; font-size: 58px; font-weight: 700;
+             animation: slide-in .6s var(--ease-out) calc(7.2s + var(--i) * .45s) both; }
+  .benefit .ic { flex: none; width: 104px; height: 104px; border-radius: 28px; display: grid; place-items: center;
+                 background: var(--brand-secondary); color: var(--brand-dark); }
+  .benefit svg { width: 60px; height: 60px; }
+
+  /* ---------- 4. offer 11–15s ---------- */
+  .offer { align-items: center; text-align: center; }
+  .old { font-size: 64px; color: var(--brand-muted); text-decoration: line-through; text-decoration-thickness: 5px;
+         animation: fade-in .4s 11.2s both; }
+  .price { font: 900 240px/1.2 var(--font-display); color: var(--brand-secondary);
+           animation: pop-in .7s var(--ease-pop) 11.3s both; }
+  .currency { font-size: 80px; color: var(--brand-light); }
+  .cta { margin-top: 50px; background: var(--brand-light); color: var(--brand-dark); font: 900 64px var(--font-display);
+         padding: 22px 80px; border-radius: 999px; animation: pop-in .6s var(--ease-pop) 12.4s both; }
+  .cta-pulse { animation: pulse 1.2s ease-in-out 13s infinite; display: inline-block; }
+  @keyframes pulse { 50% { transform: scale(1.06) } }
+  .note { margin-top: 30px; font-size: 44px; color: var(--brand-muted); animation: fade-in .5s 13s both; }
+
+  .exit-1 { animation: fade-out .35s var(--ease-in) 2.75s forwards; }
+</style>
+</head>
+<body data-duration="15" data-width="1080" data-height="1920">
+<div class="stage">
+  <div class="bg"></div>
+  <div class="bg-wash"></div>
+
+  <!-- 1. hook: a pain point or a bold question -->
+  <section class="scene" style="--in:0s; --out:3.1s">
+    <div class="safe exit-1">
+      <div class="hook display" id="hook">تعبت من القهوة الباردة في منتصف يومك؟</div>
+      <div class="hook-sub">عندنا الحل ☕</div>
+    </div>
+  </section>
+
+  <!-- 2. product reveal -->
+  <section class="scene" style="--in:3s; --out:7s">
+    <div class="product-wrap" style="animation: blur-in 1s var(--ease-out) 3.1s both, fade-out .4s var(--ease-in) 6.6s forwards">
+      <div class="ring"></div>
+      <!-- replace with: <img src="product.png" alt=""> -->
+      <div class="product-ph">صورة المنتج</div>
+    </div>
+    <div class="p-tag">جديد</div>
+    <div class="p-name display" style="animation: rise-in .7s var(--ease-out) 3.8s both, fade-out .4s var(--ease-in) 6.6s forwards">كوب حراري ذكي</div>
+  </section>
+
+  <!-- 3. benefits: 3 short lines max, each ≤ 4 words -->
+  <section class="scene" style="--in:7s; --out:11s">
+    <div class="safe benefits" style="animation: slide-out .45s var(--ease-in) 10.55s forwards">
+      <div class="benefit" style="--i:0"><span class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M8 6l4-4 4 4M5 13a7 7 0 1 0 14 0c0-3-2-5-4-7"/></svg></span>
+        يحافظ على الحرارة ١٢ ساعة</div>
+      <div class="benefit" style="--i:1"><span class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg></span>
+        تحكّم من جوالك</div>
+      <div class="benefit" style="--i:2"><span class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        ضمان سنتين</div>
+    </div>
+  </section>
+
+  <!-- 4. offer + call to action -->
+  <section class="scene" style="--in:11s">
+    <div class="safe offer">
+      <div class="old">٢٤٩ ر.س</div>
+      <div class="price"><span id="price">0</span> <span class="currency">ر.س</span></div>
+      <div class="cta"><span class="cta-pulse">اطلبه الآن</span></div>
+      <div class="note">الرابط في البايو · توصيل مجاني</div>
+    </div>
+  </section>
+</div>
+<script src="mg.js"></script>
+<script>
+  MG.splitWords(document.getElementById("hook"));
+  MG.counter(document.getElementById("price"), { from: 249, to: 179, start: 11.4, dur: 1.1, arabicDigits: true });
+</script>
+</body>
+</html>

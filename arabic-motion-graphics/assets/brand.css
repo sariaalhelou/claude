@@ -1,0 +1,31 @@
+/*
+ * brand.css — the visual identity every video inherits.
+ *
+ * PLACEHOLDER VALUES: replace them with the user's real identity
+ * (see references/brand.md). Templates only use these variables, so
+ * changing this file rebrands every video.
+ */
+:root {
+  /* colors */
+  --brand-primary: #0f766e;   /* main brand color: backgrounds, big shapes */
+  --brand-secondary: #f59e0b; /* accent: highlights, underlines, CTA */
+  --brand-dark: #0b1320;      /* dark background / text on light */
+  --brand-light: #f8f5ef;     /* light background / text on dark */
+  --brand-muted: #94a3b8;     /* secondary text, grid lines */
+
+  /* typography — families must exist in fonts/fonts.css */
+  --font-display: "Cairo";    /* headlines, numbers, hooks (use weight 900) */
+  --font-body: "Tajawal";     /* sentences, captions, labels */
+
+  /* digits: "western" (123) or "arabic" (١٢٣) — read by templates via MG.formatNumber */
+  --digits: western;
+
+  /* logo: path relative to the project folder; leave empty if none yet */
+  --logo-url: url("logo.png");
+
+  /* motion personality */
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);       /* exits */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);      /* entrances (expo-out) */
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);  /* playful overshoot */
+  --stagger: 80ms;                                 /* delay between words */
+}
