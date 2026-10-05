@@ -96,4 +96,11 @@ The video must survive a phone screen and a 1-second attention span:
   right, progress bars and wipes fill from the right.
 - Something is always moving subtly (float, slow zoom, background drift) — a fully
   static frame reads as a frozen video.
-- The last 2–3 s hold the CTA / logo still enough to read.
+- The last 2–3 s hold the CTA / logo still enough to read; closing text ≥ 56 px.
+- No empty frames: start the next scene's entrance while the previous one exits
+  (overlap 0.1–0.3 s), and keep persistent elements (background, logo, hero
+  product) on screen across scenes. Check the contact sheet for blank tiles.
+- Be visually bold: a hero element (product, big number, illustration) that fills
+  ~50–60% of the frame, rich brand backgrounds (gradient, glow, stripes) rather than
+  flat dark, and composed groups (e.g. the full meal together) instead of one
+  small item per scene.
