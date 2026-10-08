@@ -113,7 +113,7 @@ emoji replaced by the brand phone icon, low-res source). Keep the post folder.
 - **Balance**: the design is the hero. Text block ≈ 25–40% of the slide (max ~45% for a
   list post), the rest is the room; the hero furniture/detail is never covered.
 - **Logo on every slide**, bottom-center, ≥ 140 px wide (176 px default), clearly legible —
-  brown on light photos, white on dark ones (render.mjs decides; the user may force white). No halo or shadow behind it.
+  white or brown — whichever is clearer on that photo (render.mjs picks it by contrast). No halo or shadow behind it.
   Never stretched, recolored outside the provided files, rotated, or effects added.
 - Brand font only (Tajawal); headline 80–100 px, body ≥ 40 px, nothing under 30 px.
 - Colors from `brand.md` only. Red appears **only** as the time-limited offer tag.

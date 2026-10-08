@@ -66,8 +66,9 @@ translucent band, red offer tag).
 - Always on every slide, **bottom-center**, 176 px wide by default (140 min — e.g. dense list
   posts; up to 200 on a closing slide). Bottom margin 36–50 px.
 - Must be clearly readable: keep a calm area of the photo under it (floor, rug, table top,
-  plain wall). `render.mjs` chooses brown/white by contrast (or `data-logo="white|brown"` to
-  force one — the user may ask for white on some backgrounds).
+  plain wall). **White or brown — whichever is clearer on that photo** (user's rule: the only
+  thing that matters is that the logo is clearly visible). `render.mjs` picks the one with the
+  higher contrast automatically; leave `data-logo` unset unless the user asks for a color.
 - **No halo, glow or shadow behind the logo** (user's rule). If render.mjs warns about low
   contrast, switch color, move the crop, or ask for a photo with a calmer bottom center.
 - Never: stretch, rotate, recolor beyond the files, add shadows/outlines/glow, put it in a
