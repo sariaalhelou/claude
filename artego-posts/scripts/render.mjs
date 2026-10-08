@@ -6,6 +6,12 @@
  *   node render.mjs post/index.html --only 1,3      -> only those slides
  *   node render.mjs post/index.html --out dir       -> other output folder
  *   node render.mjs post/index.html --no-sheet      -> skip the contact sheet
+ *   node render.mjs post/index.html --boxes         -> print every text line's box (x1-x2, y1-y2)
+ *
+ * <section class="slide" data-calm="244,835,1090"> = the photo's calm area (x from 244 to 835,
+ * from the top down to y 1090, in 1080×1350 px). Every text line must fall inside it (WARN otherwise).
+ * A slide with data-calm and no photo renders as a wireframe (calm column + hatched decor zones),
+ * to show the user where text will sit before they generate the image.
  *
  * Every <section class="slide"> becomes one PNG. Before exporting, the script:
  *   - checks fonts and photos loaded (photo resolution too: blurry photos are flagged),
@@ -41,6 +47,7 @@ const opt = (k) => { const i = args.indexOf(k); return i > -1 ? args[i + 1] : nu
 const outDir = path.resolve(opt("--out") || path.join(path.dirname(page), "export"));
 const only = opt("--only") ? opt("--only").split(",").map(Number) : null;
 const noSheet = args.includes("--no-sheet");
+const showBoxes = args.includes("--boxes");
 fs.mkdirSync(outDir, { recursive: true });
 
 const { chromium } = loadPlaywright();
@@ -80,6 +87,8 @@ const report = await p.evaluate(() => {
     const items = [];
     const logo = s.querySelector(".logo-wrap").getBoundingClientRect();
     const lz = { l: logo.left - sr.left - 30, r: logo.right - sr.left + 30, t: logo.top - sr.top - 24, b: logo.bottom - sr.top };
+    const calm = s.dataset.calm ? s.dataset.calm.split(",").map(Number) : null;
+    const boxes = [];
     for (const el of s.querySelectorAll("*")) {
       if (el.closest(".logo-wrap, .edge-ok")) continue;
       const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
@@ -91,6 +100,8 @@ const report = await p.evaluate(() => {
         const txt = el.textContent.trim().slice(0, 30);
         if (x1 < SAFE.l - 1 || x2 > SAFE.r + 1 || y1 < SAFE.t) items.push(`text outside the safe area: "${txt}" (x ${x1 | 0}→${x2 | 0}, y ${y1 | 0})`);
         if (x2 > lz.l && x1 < lz.r && y2 > lz.t && y1 < lz.b) items.push(`text overlaps the logo zone: "${txt}"`);
+        if (calm && (x1 < calm[0] - 1 || x2 > calm[1] + 1 || y2 > calm[2] + 1)) items.push(`text outside the photo's calm area ${calm.join(",")}: "${txt}" (x ${x1 | 0}→${x2 | 0}, y ${y1 | 0}→${y2 | 0})`);
+        boxes.push(`  ${x1 | 0}-${x2 | 0}  y ${y1 | 0}-${y2 | 0}  "${txt}"`);
       }
       if (el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflow !== "visible") items.push(`text clipped: "${el.textContent.trim().slice(0, 30)}"`);
     }
@@ -98,12 +109,12 @@ const report = await p.evaluate(() => {
       const n = +getComputedStyle(im).getPropertyValue("--n") || 1;
       return { src: im.getAttribute("src"), w: im.naturalWidth, h: im.naturalHeight, n };
     });
-    if (!photos.length && !s.classList.contains("no-photo")) items.push("no photo on this slide (Artego posts are photo-led; add class no-photo if intended)");
+    if (!photos.length && !s.classList.contains("no-photo") && !calm) items.push("no photo on this slide (Artego posts are photo-led; add class no-photo if intended)");
     for (const ph of photos) {
       if (!ph.w) items.push(`photo did not load: ${ph.src}`);
       else if (ph.w < 1080 * ph.n * 0.85 || ph.h < 1350 * 0.85) items.push(`photo is low-res (${ph.w}×${ph.h}) — will look soft; ask for a larger file or upscale it`);
     }
-    out.push({ i, items, logo: { x: logo.left - sr.left, y: logo.top - sr.top, w: logo.width, h: logo.height }, mode: s.dataset.logo || document.body.dataset.logo || "auto" });
+    out.push({ i, items, logo: { x: logo.left - sr.left, y: logo.top - sr.top, w: logo.width, h: logo.height }, mode: s.dataset.logo || document.body.dataset.logo || "auto", boxes: [...new Set(boxes)] });
   });
   return out;
 });
@@ -148,6 +159,7 @@ for (const r of report) {
     if (worst < 1.6) r.items.push(`logo background is very busy (${worst.toFixed(1)}:1 before halo) — move/crop the photo so a calmer area sits under the logo`);
   } else console.log(`slide ${r.i + 1}: logo ${mode} (contrast ≥ ${worst.toFixed(1)}:1)`);
   for (const m of r.items) warn(r.i + 1, m);
+  if (showBoxes) console.log(`slide ${r.i + 1} text lines (x1-x2, y1-y2):\n${r.boxes.join("\n")}`);
 }
 await p.waitForTimeout(100);
 await p.evaluate(() => Promise.all([...document.images].map((im) => im.decode().catch(() => {}))));

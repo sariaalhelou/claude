@@ -154,6 +154,10 @@ body:not(.export) { display: flex; flex-direction: column; align-items: center; 
 .logo-wrap.halo::before { background: radial-gradient(closest-side, rgba(var(--halo, 246,241,234), .78), rgba(var(--halo, 246,241,234), .35) 60%, transparent); }
 .logo-wrap.halo.dark { --halo: 35,26,20; }
 
+/* ---------- wireframe (slide with data-calm and no photo yet) ---------- */
+.wire { position: absolute; inset: 0; z-index: 0; background: repeating-linear-gradient(135deg, #d9c9b6 0 18px, #e3d5c4 18px 36px); }
+.wire-calm { position: absolute; top: 0; background: var(--cream); }
+
 /* ---------- guides (?guides) ---------- */
 .guides .slide::after {
   content: ""; position: absolute; inset: 70px 70px 230px; z-index: 50; pointer-events: none;

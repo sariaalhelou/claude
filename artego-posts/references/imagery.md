@@ -76,6 +76,47 @@ at the bottom center, editorial product photography, shallow depth of field, no 
 readable on the plan, no logos, no people's faces
 ```
 
+## Prompts for the user's image tool (Gemini, ChatGPT, Midjourney…)
+When the user generates the image themselves, the prompt must describe the **layout**, not
+only the room, because the text is already placed on the wireframe:
+1. Start with: `Photorealistic luxury interior, straight-on eye-level shot, vertical 4:5 portrait.`
+2. `Strict layout:` + the calm area in words and percentages from `data-calm`
+   (e.g. "the CENTER of the frame — the middle 62% of the width, from the very top down to about
+   80% of the height — is one tall, completely plain, softly lit warm cream plaster wall: no
+   art, no shelves, no lamps, nothing on it").
+3. Where the decor goes, edge by edge (left edge / right edge / bottom 20%), with the Artego
+   pieces that suit the message.
+4. `Keep the floor at the bottom center empty and calm` (logo).
+5. Palette + photo style line, then `No text, no letters, no numbers, no logos, no artwork on
+   the wall, no people.`
+6. Give the user a fix-up line for the most likely failure, e.g. `Keep everything the same, but
+   remove all objects from the central wall — it must be completely plain.`, and ask them to
+   download the largest size.
+
+Proven example (list post, accepted by the user — the result matched the wireframe):
+```
+Photorealistic luxury interior, straight-on eye-level shot, vertical 4:5 portrait.
+Strict layout: the CENTER of the frame (the middle 62% of the width, from the very top down
+to about 80% of the height) is one tall, completely plain, softly lit warm cream limewash
+plaster wall — smooth, no art, no shelves, no lamps, no objects, nothing on it.
+All the decor frames that wall ONLY along the left and right edges (each edge about 18% of
+the width):
+- left edge: a tall arched window with sheer linen curtains and soft daylight, a slim olive
+  tree in a stone pot;
+- right edge: a tall arched niche with warm-oak fluted panels, built-in oak shelves with
+  hidden warm LED strips, ceramic vases and a dried olive branch.
+Bottom 20% of the frame: the edge of a cream bouclé lounge chair at the bottom left, and a
+low round travertine side table with a ceramic bowl at the bottom right. Keep the floor at
+the bottom center empty and calm (light oak floor and a soft beige rug).
+Warm neutral palette only: ivory, cream, beige, warm oak, travertine, soft olive green,
+subtle brass. Symmetric and balanced, straight verticals, natural daylight. Interior design
+magazine photography, sharp realistic textures.
+No text, no letters, no numbers, no logos, no artwork on the wall, no people.
+```
+For top-text layouts (single / offer / carousel slides) the strict-layout line becomes
+"the upper N% of the frame is an empty, softly lit plain wall and ceiling; all furniture is in
+the lower part; calm floor at the bottom center", with N from the wireframe (+5% margin).
+
 ## Carousel consistency
 - Generate the **cover image first** and approve it visually. Then generate each next slide
   with that image as a **reference** (`medias: [{ value: <job_id>, role: "image_references" }]`

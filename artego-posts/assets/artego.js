@@ -21,6 +21,13 @@
         w.appendChild(img);
         s.appendChild(w);
       }
+      if (s.dataset.calm && !s.querySelector("img.photo")) {
+        const [l, r, b] = s.dataset.calm.split(",").map(Number);
+        const w = document.createElement("div");
+        w.className = "wire";
+        w.innerHTML = `<div class="wire-calm" style="left:${l}px;width:${r - l}px;height:${b}px"></div>`;
+        s.prepend(w);
+      }
       const mode = s.dataset.logo || document.body.dataset.logo || "auto";
       const img = s.querySelector(".logo-wrap img");
       img.src = LOGOS[mode === "auto" ? "brown" : mode] || LOGOS.brown;

@@ -7,29 +7,31 @@
 <script src="artego.js" defer></script>
 </head>
 <body>
-<!-- LIST POST (4:5): headline + short list in glass rows, the room frames the text on both sides
-     (choose a photo whose middle is a calm wall and whose sides carry the furniture/decor). -->
-<section class="slide" style="--logo-w: 140px; --logo-bottom: 36px">
-  <img class="photo" src="photos/01.jpg" style="--pos: 50% 50%">
-  <div class="scrim full" style="--a: .22"></div>
-  <div class="scrim top warm" style="--h: 40%; --a: .7"></div>
+<!-- LIST POST (4:5) — proven layout: one centered text column on a plain central wall,
+     the decor frames it on the left/right edges and along the bottom.
+     data-calm="l,r,b" = the photo's plain wall in post px (x l→r, from the top down to y b).
+     Without a photo the slide renders as a wireframe of that area (show it to the user
+     with the image prompt). After the photo arrives: fit it (scripts/fit_photo.py),
+     measure the wall, update data-calm and narrow .zone (left/right) to stay inside it. -->
+<section class="slide" data-calm="244,835,1090" style="--logo-w: 164px; --logo-bottom: 30px">
+  <!-- <img class="photo" src="photos/01.jpg"> -->
 
-  <div class="zone top" style="--top: 70px">
-    <div class="kicker" style="--fs: 66px">قبل بدء التنفيذ...</div>
-    <div class="title charcoal" style="--fs: 96px">ماذا يجب أن تراجع؟</div>
-    <div class="divider"></div>
-    <div class="lead">5 نقاط أساسية</div>
-    <div class="small" style="--fs: 42px">قبل أن تبدأ أعمال التنفيذ</div>
+  <div class="zone top" style="--top: 70px; left: 250px; right: 250px">
+    <div class="kicker" style="--fs: 46px; white-space: nowrap">الفخامة ليست في كثرة التفاصيل...</div>
+    <div class="title charcoal" style="--fs: 74px; margin-top: 6px">بل في اختيار<br>التفاصيل المناسبة.</div>
+    <div class="divider" style="--w: 360px; --m: 26px"></div>
 
-    <div class="list" style="--rh: 78px; --gap: 10px">
-      <div class="row"><span class="t">المخططات</span><span class="sep"></span><span class="n">01</span></div>
-      <div class="row"><span class="t">الكهرباء والإضاءة</span><span class="sep"></span><span class="n">02</span></div>
-      <div class="row"><span class="t">الخامات والتشطيبات</span><span class="sep"></span><span class="n">03</span></div>
-      <div class="row"><span class="t">المقاسات والأبعاد</span><span class="sep"></span><span class="n">04</span></div>
-      <div class="row"><span class="t">تفاصيل التنفيذ</span><span class="sep"></span><span class="n">05</span></div>
+    <div class="list" style="--w: 560px; --rh: 76px; --gap: 12px; --fs: 40px; margin-top: 0">
+      <div class="row"><span class="t">توزيع يحقق الراحة</span><span class="sep"></span><span class="n">01</span></div>
+      <div class="row"><span class="t">خامات تنسجم معًا</span><span class="sep"></span><span class="n">02</span></div>
+      <div class="row"><span class="t">إضاءة تخدم التصميم</span><span class="sep"></span><span class="n">03</span></div>
+      <div class="row"><span class="t">تشطيبات دقيقة</span><span class="sep"></span><span class="n">04</span></div>
+      <div class="row"><span class="t">تنفيذ يحترم الرؤية</span><span class="sep"></span><span class="n">05</span></div>
     </div>
 
-    <div class="small" style="margin-top: 40px">قبل أن تبدأ التنفيذ...<br>اجعل كل قرار واضحًا ومعتمدًا</div>
+    <div class="body" style="--fs: 34px; margin-top: 34px; font-weight: 500; white-space: nowrap">هل حان وقت تصميم مساحة تعكس ذوقك؟</div>
+    <div class="body" style="--fs: 38px; font-weight: 700; color: var(--copper)">ابدأ مع <bdi>Artego</bdi>.</div>
+    <div class="contact" style="--fs: 28px; margin-top: 12px"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>00966508510024</div>
   </div>
 </section>
 </body>
