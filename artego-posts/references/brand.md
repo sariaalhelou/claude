@@ -1,7 +1,10 @@
 # Artego brand (from Artego's brand strategy + their approved posts)
 
 **ARTEGO — Creative Decoration.** Luxury interior design, execution, furnishing and full
-project management (Saudi market; site artego-me.com, Instagram artego.me). The account
+project management (Saudi market; site artego-me.com, Instagram artego.me).
+
+**Contact number for posts: `00966508510024`** (confirmed by the user — use this one on closing
+slides / contact chips, written exactly like this; not the business-card number). The account
 should feel like a **trusted reference in luxury interior design**, led by an experienced
 designer — not a sales catalogue.
 
