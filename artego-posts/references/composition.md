@@ -19,6 +19,18 @@ The room is the hero; the text is a calm caption on it.
   photo use white text (`.title.light`, `.sub.light`) with a `scrim bottom`-style darkening
   at the top instead, or pick a lighter crop.
 
+## One text block — and size the photo to the text BEFORE generating it
+Lesson from the first offer post: scattering text into 3 zones (top + a side column + above
+the logo) to fit a long text broke Artego's look and covered the furniture. Rules:
+- Keep **one centered text block** at the top (plus, at most, one small element like the
+  offer tag or a contact chip). No side columns, no text over furniture.
+- Count the text before writing the image prompt. Rough budget per 4:5 slide: kicker +
+  2-line headline + 1–2 short lines + one tag/chip. More than that → **carousel** (split by
+  meaning) — propose it to the user rather than shrinking or scattering text.
+- Then write the prompt for that budget: say how much of the frame must be empty
+  (e.g. "the upper 45% is an empty plain wall and ceiling"), keep the furniture in the lower
+  half, symmetric/centered composition, and nothing at bottom-center (logo).
+
 ## Layouts (`assets/layouts/`)
 | Layout | Use for | Structure |
 |---|---|---|
