@@ -17,7 +17,8 @@
  *   - checks fonts and photos loaded (photo resolution too: blurry photos are flagged),
  *   - flags text outside the safe area, text clipped/overflowing, text over the logo zone,
  *   - picks the logo color per slide from the photo behind it (data-logo="auto") and adds a
- *     soft halo when the contrast is still low, so the logo is always clear.
+ *     NO halo/shadow behind it (user's rule) — when contrast is low it warns instead, so the
+ *     photo/crop or the logo color is fixed rather than masked.
  * Warnings print as "WARN slide N: …" — treat them as errors and fix before delivering.
  */
 import { createRequire } from "node:module";
@@ -152,12 +153,14 @@ for (const r of report) {
   if (mode === "auto") mode = ratio(INK.brown, st.mean) >= ratio(INK.white, st.mean) ? "brown" : "white";
   // worst case: the part of the background closest to the ink color
   const worst = mode === "white" ? ratio(INK.white, st.hi) : ratio(INK[mode], st.lo);
-  const halo = worst < 3;
-  await p.evaluate(([i, m, h, dark]) => window.ARTEGO.setLogo(i, m, h, dark), [r.i, mode, halo, mode === "white"]);
-  if (halo) {
-    console.log(`slide ${r.i + 1}: logo ${mode} + soft halo (low-contrast spots under the logo, worst ${worst.toFixed(1)}:1)`);
-    if (worst < 1.6) r.items.push(`logo background is very busy (${worst.toFixed(1)}:1 before halo) — move/crop the photo so a calmer area sits under the logo`);
-  } else console.log(`slide ${r.i + 1}: logo ${mode} (contrast ≥ ${worst.toFixed(1)}:1)`);
+  // user's rule: never a halo/shadow behind the logo — fix the photo/crop or the color instead
+  await p.evaluate(([i, m]) => window.ARTEGO.setLogo(i, m, false, false), [r.i, mode]);
+  console.log(`slide ${r.i + 1}: logo ${mode} (contrast ≥ ${worst.toFixed(1)}:1)`);
+  if (worst < 3) {
+    const other = mode === "white" ? "brown" : "white";
+    const alt = other === "white" ? ratio(INK.white, st.hi) : ratio(INK.brown, st.lo);
+    r.items.push(`logo ${mode} has low contrast (${worst.toFixed(1)}:1; ${other} would be ${alt.toFixed(1)}:1) — ${alt > worst ? `use data-logo="${other}", or ` : ""}move/crop the photo so a calmer area sits under the logo`);
+  }
   for (const m of r.items) warn(r.i + 1, m);
   if (showBoxes) console.log(`slide ${r.i + 1} text lines (x1-x2, y1-y2):\n${r.boxes.join("\n")}`);
 }

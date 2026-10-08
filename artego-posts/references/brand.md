@@ -66,8 +66,10 @@ Baloo Bhaijaan 2 was matched to the approved posts glyph by glyph — don't subs
 - Always on every slide, **bottom-center**, 176 px wide by default (140 min — e.g. dense list
   posts; up to 200 on a closing slide). Bottom margin 36–50 px.
 - Must be clearly readable: keep a calm area of the photo under it (floor, rug, table top,
-  plain wall). `render.mjs` chooses brown/white by contrast and adds a soft halo if needed;
-  if it warns that the area is very busy, move the crop or regenerate the photo.
+  plain wall). `render.mjs` chooses brown/white by contrast (or `data-logo="white|brown"` to
+  force one — the user may ask for white on some backgrounds).
+- **No halo, glow or shadow behind the logo** (user's rule). If render.mjs warns about low
+  contrast, switch color, move the crop, or ask for a photo with a calmer bottom center.
 - Never: stretch, rotate, recolor beyond the files, add shadows/outlines/glow, put it in a
   box, place it in a corner, or let text/furniture-cutouts overlap it.
 
