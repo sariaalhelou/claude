@@ -40,7 +40,7 @@ missing/ambiguous, or when a decision is genuinely theirs (e.g. which project ph
 | `assets/artego.css` | Stage 1080×1350, brand colors, type scale, scrims, band, pill, list rows, swipe hint, contact chip, logo |
 | `assets/artego.js` | Adds the logo to every slide, `?guides` overlay (safe area + logo zone) |
 | `assets/brand/` | Logo as vector SVG: `logo-brown` (default), `logo-white`, `logo-original` (black+beige), `logo-espresso-gold` |
-| `assets/fonts/` | Baloo Bhaijaan 2 (Artego's Arabic font, 400–800), Open Sans (Latin), Playfair Display (01 02 numbers) |
+| `assets/fonts/` | Tajawal (Artego's Arabic font, user-chosen; 300–900), Open Sans (Latin), Playfair Display (01 02 numbers) |
 | `references/brand.md` | **Read for every post** — personality, colors, fonts, logo rules, don'ts |
 | `references/composition.md` | **Read for every post** — text/design balance, zones, sizes, each layout, carousel structure |
 | `references/imagery.md` | **Read whenever you generate or choose photos** — photo style, prompt recipe, carousel consistency, AI-artifact checks |
@@ -92,7 +92,7 @@ python3 <skill>/scripts/fit_photo.py <photo> <post-dir>/photos/01.jpg
 ```
 Look at the photo and measure its real calm area (convert with the printed scale/offset),
 update `data-calm`, and adjust the text block to sit inside it — usually narrower margins and
-slightly smaller sizes (kicker ~46, headline ~74, closing line ~34–40, rows ~40). Keep the
+slightly smaller sizes (with Tajawal on a ~590 px wall: kicker ~42, headline ~64, closing line ~36 on two lines, rows ~40). Keep the
 logo bottom-center on a calm patch (rug/floor), 150–176 px.
 
 ### 6. Render and look
@@ -115,7 +115,7 @@ emoji replaced by the brand phone icon, low-res source). Keep the post folder.
 - **Logo on every slide**, bottom-center, ≥ 140 px wide (176 px default), clearly legible —
   brown on light photos, white on dark ones (render.mjs decides; the user may force white). No halo or shadow behind it.
   Never stretched, recolored outside the provided files, rotated, or effects added.
-- Brand font only (Baloo Bhaijaan 2); headline 80–100 px, body ≥ 40 px, nothing under 30 px.
+- Brand font only (Tajawal); headline 80–100 px, body ≥ 40 px, nothing under 30 px.
 - Colors from `brand.md` only. Red appears **only** as the time-limited offer tag.
 - Western digits (1 2 3, 10%), Arabic punctuation (، ؟), text right-aligned or centered as in
   the layouts; lines broken by meaning.

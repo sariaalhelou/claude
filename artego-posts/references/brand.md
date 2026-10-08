@@ -48,16 +48,16 @@ translucent band, red offer tag).
 ## Typography
 | Role | Font | Weight | Size (px @1080) |
 |---|---|---|---|
-| Headline | Baloo Bhaijaan 2 | 800 | 80–100 (92 default) |
-| Kicker (line above headline) | Baloo Bhaijaan 2 | 400 | 64–76, copper |
-| Accent line ("5 نقاط أساسية") | Baloo Bhaijaan 2 | 700 | 60–70, copper |
-| Numbered slide title ("01 \| وقتك لا يسمح") | Baloo Bhaijaan 2 | 800 | 60–68, walnut |
-| Subtitle / body | Baloo Bhaijaan 2 | 400–500 | 40–50 |
-| Services line (تصميم داخلي • تنفيذ • …) | Baloo Bhaijaan 2 | 400 | 34–38, copper dots |
+| Headline | Tajawal | 800 | 80–100 (92 default) |
+| Kicker (line above headline) | Tajawal | 400 | 64–76, copper |
+| Accent line ("5 نقاط أساسية") | Tajawal | 700 | 60–70, copper |
+| Numbered slide title ("01 \| وقتك لا يسمح") | Tajawal | 800 | 60–68, walnut |
+| Subtitle / body | Tajawal | 400–500 | 40–50 |
+| Services line (تصميم داخلي • تنفيذ • …) | Tajawal | 400 | 34–38, copper dots |
 | Latin tagline (DESIGN • EXECUTION • DELIVERY) | Open Sans | 400 | 32–36, espresso, slight tracking |
 | List numbers 01–05 | Playfair Display | 400 | 56–64, rust |
 
-Baloo Bhaijaan 2 was matched to the approved posts glyph by glyph — don't substitute it.
+**Tajawal is Artego's Arabic font (chosen by the user — it replaced Baloo Bhaijaan 2, which the early posts used).** Don't substitute it. Weights available: 300 400 500 700 800 900 (no 600).
 
 ## Logo
 - Files: `assets/brand/logo-brown.svg` (default on light photos), `logo-white.svg` (on dark
